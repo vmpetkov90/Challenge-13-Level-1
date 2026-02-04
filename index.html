@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="LISTEN, music app, live concerts, DJ sets, streaming, artist visuals, music culture, immersive sound, band performances, vinyl records, urban style, music photography, creative audio experiences">
+    <meta name="description" content="LISTEN is a music web app celebrating sound and style through immersive visuals, live performances, and artist-driven moments. Discover the pulse of modern music culture with stunning imagery and curated experiences.">
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/64038fda00.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="img/favicon.svg" type="image/x-icon">
+    <title>LISTEN | Stream, Connect & Experience Music Together</title>
+</head>
+
+<body class="flex h-dvh overflow-hidden">
+    <header class="bg-gray-900 2xl:w-70 xl:w-50 w-70 xl:ml-0 -ml-70 xl:relative xl:z-1 z-200 absolute duration-300 h-dvh flex flex-col justify-between overflow-y-auto overflow-x-hidden">
+        <div id="nav-header" class="flex items-center justify-between p-4 mb-10 h-20">
+            <a id="logo" href="">
+                <img class="2xl:w-26 w-22" src="img/logo.svg" alt="App logo">
+            </a>
+            <button type="button" id="nav-button" onclick="smallNav()" class="xl:block hidden text-stone-200 cursor-pointer">
+                <span><i class="fa-solid fa-bars"></i></span>
+                <span class="xl:hidden m-2 block"><i class="fa-solid fa-bars-staggered"></i></span>
+            </button>
+            <button type="button" id="nav-button" onclick="mobileNav()" class="xl:hidden text-stone-200 cursor-pointer">
+                <span class="m-2 block"><i class="fa-solid fa-bars-staggered"></i></span>
+            </button>
+        </div>
+        <nav>
+            <ul class="text-stone-200">
+                <li>
+                    <a class="block whitespace-nowrap border-l-3 border-blue-500 px-5 py-2 text-blue-500 bg-linear-to-r from-blue-500/15 to-blue-500/0" href=""><i class=" mr-3 fa-regular fa-house"></i><span>Home</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-compact-disc"></i><span>Genres</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-music"></i><span>Free Music</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-record-vinyl"></i><span>Albums</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-microphone-lines"></i><span>Artists</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-radio"></i><span>Stations</span></a>
+                </li>
+                <li class="text-stone-600 px-6 mt-6 mb-4"><span>Music</span><span class="xl:hidden xl:relative xl:visible absolute invisible w-full text-center block">...</span></li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-chart-pie"></i><span>Analytics</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-heart"></i><span>Favourites</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-clock-rotate-left"></i><span>History</span></a>
+                </li>
+                <li class="text-stone-600 px-6 mt-6 mb-4"><span>Events</span><span class="xl:hidden xl:relative xl:visible absolute invisible  w-full text-center block">...</span></li>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-calendar-days"></i><span>Events</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-calendar-day"></i><span>Event Details</span></a>
+                </li>
+                <li>
+                    <a class="block whitespace-nowrap  px-6 py-2 hover:text-blue-500 transition-[color] duration-200" href=""><i class=" mr-3 fa-solid fa-circle-plus"></i><span>Add Event</span></a>
+                </li>
+            </ul>
+        </nav>
+        <button type="button" class="bg-blue-500 hover:bg-blue-500/80 transition-[background] duration-200 cursor-pointer rounded text-white m-4 p-2 whitespace-nowrap"><i class=" mr-2 fa-brands fa-itunes-note"></i><span>Add Music</span></button>
+        <div id="bg-nav" class="fixed top-0 left-0 right-0 bottom-0 bg-gray-950/60 -z-1 backdrop-blur-xs invisible opacity-0 duration-300">
+        </div>
+    </header>
+    <main class="flex-auto bg-gray-950 h-dvh relative overflow-y-scroll">
+        <section id="searchbar" class="bg-[url(img/background.jpg)] bg-center h-80 relative after:content-[''] after:absolute after:top-0 after:left-0 after:h-full after:w-full after:bg-linear-to-t after:from-gray-950">
+            <div class="2xl:max-w-310 max-w-260 m-auto p-5 relative z-100">
+                <div class="text-stone-200 fixed 2xl:w-300 xl:w-250 xl:left-auto left-5 xl:right-auto right-9 bg-blue-500 flex px-6 rounded-md ">
+                    <button type="button" id="nav-button" onclick="mobileNav()" class="text-stone-200 cursor-pointer">
+                        <span class="xl:hidden mr-10 block"><i class="fa-solid fa-bars"></i></span>
+                    </button>
+                    <form action="" class="flex items-center flex-auto">
+                        <label for="search"></label>
+                        <i class="text-lg cursor-pointer fa-solid fa-magnifying-glass"></i>
+                        <input type="text" name="search" id="search" autocomplete="off" onclick="showDropdown()" class="w-full outline-none ml-3  pr-5 placeholder:text-stone-200 placeholder:text-sm" placeholder="Type anything to get result...">
+                        <div id="searchbar-dropdown" class="absolute bg-gray-900 left-0 top-13 rounded-md right-0 h-80 overflow-auto invisible opacity-0 duration-300">
+                            <div id="dropdown-container">
+                                <ul class="py-3 px-5 border-b-1 border-blue-500/10">
+                                    <li class="inline"><a class="bg-blue-500/7 text-blue-500 text-sm rounded px-3 py-1 inline-block hover:bg-blue-500/15 duration-300" href="">Artists</a></li>
+                                    <li class="inline"><a class="bg-blue-500/7 text-blue-500 text-sm rounded px-3 py-1 inline-block hover:bg-blue-500/15 duration-300" href="">Songs</a></li>
+                                    <li class="inline"><a class="bg-blue-500/7 text-blue-500 text-sm rounded px-3 py-1 inline-block hover:bg-blue-500/15 duration-300" href="">Albums</a></li>
+                                </ul>
+                                <div class="p-5">
+                                    <div>
+                                        <div class="section-header relative mb-5">
+                                            <h3 class="font-medium uppercase text-stone-200">Artists</span></h2>
+                                                <a class="text-blue-500 uppercase text-sm absolute right-0 bottom-0 border-b-2 pb-[2px] 
+                                        after:content-[''] after:absolute after:h-1 after:w-5 after:bg-gray-900 after:-bottom-1 after:-left-5 hover:after:left-full hover:after:duration-400" href="">View all</a>
+                                        </div>
+                                        <ul class="grid lg:grid-cols-4 md:grid-cols-2 gap-4">
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_1.jpg" alt="Person in black hoodie holding red smoke flare in urban setting">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Jina Moore</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_2.jpg" alt="Person in STUSSY t-shirt and ripped jeans sitting on staircase indoors">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Rasomi Pelina</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_3.jpg" alt="Person holding glowing object wrapped in string lights in dimly lit room with 'Dream' on wall">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Pimila Holliwy</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_4.jpg" alt="DJ performing with dramatic red and white lighting and smoke effects">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Karen Jennings</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-10">
+                                        <div class="section-header relative mb-5">
+                                            <h3 class="font-medium uppercase text-stone-200">Artists</span></h2>
+                                                <a class="text-blue-500 uppercase text-sm absolute right-0 bottom-0 border-b-2 pb-[2px] 
+                                        after:content-[''] after:absolute after:h-1 after:w-5 after:bg-gray-900 after:-bottom-1 after:-left-5 hover:after:left-full hover:after:duration-400" href="">View all</a>
+                                        </div>
+                                        <ul class="grid grid lg:grid-cols-4 md:grid-cols-2 gap-4">
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_5.jpg" alt="Person with reflective sunglasses and neon lighting standing behind glass panel">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Hey Not me</p>
+                                                        <p class="text-stone-500 text-sm">Rasomi Pelina</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_1.jpg" alt="Person in black hoodie holding red smoke flare in urban setting">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Deep inside</p>
+                                                        <p class="text-stone-500 text-sm">Pimila Holliwy</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_2.jpg" alt="Person in STUSSY t-shirt and ripped jeans sitting on staircase indoors">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Sadness</p>
+                                                        <p class="text-stone-500 text-sm">Karen Jennings</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_3.jpg" alt="Person holding glowing object wrapped in string lights in dimly lit room with 'Dream' on wall">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Electric wave</p>
+                                                        <p class="text-stone-500 text-sm">Lenisa Gory</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-10">
+                                        <div class="section-header relative mb-5">
+                                            <h3 class="font-medium uppercase text-stone-200">Artists</span></h2>
+                                                <a class="text-blue-500 uppercase text-sm absolute right-0 bottom-0 border-b-2 pb-[2px] 
+                                        after:content-[''] after:absolute after:h-1 after:w-5 after:bg-gray-900 after:-bottom-1 after:-left-5 hover:after:left-full hover:after:duration-400" href="">View all</a>
+                                        </div>
+                                        <ul class="grid grid lg:grid-cols-4 md:grid-cols-2 gap-4">
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_4.jpg" alt="DJ performing with dramatic red and white lighting and smoke effects">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Mummy</p>
+                                                        <p class="text-stone-500 text-sm">Arebica Luna</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_5.jpg" alt="Person with reflective sunglasses and neon lighting standing behind glass panel">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Hot shot</p>
+                                                        <p class="text-stone-500 text-sm">Gerrina Linda</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_1.jpg" alt="Person in black hoodie holding red smoke flare in urban setting">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Own way</p>
+                                                        <p class="text-stone-500 text-sm">Zunnira Willy</p>
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="flex items-center rounded-md p-2 hover:bg-gray-800 duration-300">
+                                                    <img class="size-12 rounded-md" src="img/song_2.jpg" alt="Person in STUSSY t-shirt and ripped jeans sitting on staircase indoors">
+                                                    <div class="ml-3">
+                                                        <p class="font-bold text-sm">Say Yes</p>
+                                                        <p class="text-stone-500 text-sm">Johnny Marro</p>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="flex items-center">
+                        <li class="flex items-center cursor-pointer mr-5 group py-3 relative"><i class="fa-solid fa-earth-americas"></i> <span class="md:block hidden ml-2">Language</span>
+                            <div class="absolute hidden top-12 w-70 right-0  bg-gray-950 text-stone-400 group-hover:block cursor-default rounded-md shadow-xl/50">
+                                <div class="dropdown-header p-5">
+                                    <h4 class="font-semibold">What music do you like?</h4>
+                                    <p class="text-sm">Select languages you want to listen.</p>
+                                </div>
+                                <ul class="grid grid-cols-2 border-y border-stone-200/10 p-5">
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="english">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="english" id="english">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            English
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="spanish">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="spanish" id="spanish">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Spanish
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="italian">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="italian" id="italian">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Italian
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="french">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="french" id="french">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            French
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="german">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="german" id="german">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            German
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="greek">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="greek" id="greek">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Greek
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="portugese">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="portugese" id="portugese">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Portugese
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="japanese">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="japanese" id="japanese">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Japanese
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="turkish">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="turkish" id="turkish">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Turkish
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="Polish">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="Polish" id="Polish">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Polish
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="arabic">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="arabic" id="arabic">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Arabic
+                                        </label>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <label class="cursor-pointer flex items-center has-checked:[&>span]:bg-blue-500 has-checked:[&>span]:border-blue-500 has-checked:[&>span]:text-stone-200 hover:text-blue-500 transition-[color] duration-200" for="Russian">
+                                            <input class="peer absolute h-0 w-0" type="checkbox" name="Russian" id="Russian">
+                                            <span class="border border-stone-200 text-gray-950 mr-2 cursor-pointer size-4 rounded flex items-center justify-center block"><i class="text-[8px] fa-solid fa-check"></i></span>
+                                            Russian
+                                        </label>
+                                    </li>
+
+                                </ul>
+                                <div class="dropdown-footer p-5">
+                                    <button type="button" class="bg-blue-500 hover:bg-blue-500/80 w-full transition-[background] duration-200 cursor-pointer rounded text-white  p-2">Update</button>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="flex items-center cursor-pointer group py-2 relative"><img class="size-8 inline rounded-full mr-1" src="img/user_1.jpg" alt="Person in green turtleneck and hoop earrings standing against solid pink background"> <span class="md:block hidden ml-1">Androws</span> 
+                            <div class="absolute hidden top-12 right-0 w-55  bg-gray-950 text-stone-400 group-hover:block cursor-default rounded-md shadow-xl/50">
+                                <div class="dropdown-header p-5 overflow-hidden">
+                                    <img class="size-14 rounded-full float-left mr-3" src="img/user_1.jpg" alt="Person in green turtleneck and hoop earrings standing against solid pink background">
+                                    <p class="inline text-sm font-bold">Androws Kinny</p>
+                                    <br>
+                                    <p class="inline text-sm text-stone-500">Artist</p>
+                                </div>
+                                <ul class="border-y border-stone-200/10 pt-2">
+                                    <li class="mb-2 flex items-center">
+                                        <a class="px-5 py-1 w-full hover:bg-gray-800" href=""><i class="mr-2 fa-solid fa-user"></i>Profile</a>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <a class="px-5 py-1 w-full hover:bg-gray-800" href=""><i class="mr-2 fa-solid fa-heart"></i>Favourites</a>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <a class="px-5 py-1 w-full hover:bg-gray-800" href=""><i class="mr-2 fa-solid fa-gear"></i>Settings</a>
+                                    </li>
+                                    <li class="mb-2 flex items-center">
+                                        <a class="px-5 py-1 w-full hover:bg-gray-800" href=""><i class="mr-2 fa-brands fa-cash-app"></i>Plan</a>
+                                    </li>
+
+
+                                </ul>
+                                <div class="dropdown-footer py-2">
+                                    <a class="px-5 py-1 block w-full text-red-600 hover:bg-gray-800" href=""><i class="mr-2 fa-solid fa-arrow-right-from-bracket"></i>Log out</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="bg-dropdown" onclick="closeDropdown()" class="fixed top-0 left-0 right-0 bottom-0 bg-gray-950/60 -z-1 backdrop-blur-xs invisible opacity-0 duration-300">
+                </div>
+            </div>
+        </section>
+        <section id="top-charts" class="relative -top-15">
+            <div id="container" class="2xl:max-w-310 max-w-260 m-auto p-5 overflow-hidden">
+                <div class="section-header relative mb-10">
+                    <p class="uppercase text-[12px] text-stone-500">Listen top charts</p>
+                    <h2 class="font-bold text-4xl text-stone-200">Top <span class="text-blue-500">Charts</span></h2>
+                    <a class="text-blue-500 uppercase text-sm absolute right-0 bottom-0 border-b-2 pb-[2px] 
+                    after:content-[''] after:absolute after:h-1 after:w-5 after:bg-gray-950 after:-bottom-1 after:-left-5 hover:after:left-full hover:after:duration-400" href="">View all</a>
+                </div>
+                <div id="top-charts-container" class="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
+                    <div>
+                        <div class="overflow-hidden relative rounded-xl mb-3 hover:[&_*]:opacity-100 hover:[&>img]:scale-110 after:content-[''] after:absolute after:top-0 after:left-0 after:h-1/3 after:w-full after:opacity-0 hover:after:opacity-100 after:duration-400 after:bg-linear-to-b after:from-gray-950">
+                            <div class="absolute text-sm text-stone-200 flex items-top w-full h-full p-4 z-2">
+                                <span class="size-6 block float-left bg-red-600 rounded-full flex items-center justify-center mr-2"><i class="fa-solid fa-heart"></i></span>
+                                <button type="button" class="absolute cursor-pointer right-2 opacity-0 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-3/4 h-full flex flex-col justify-around -right-3/4 duration-200 hover:right-0">
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Favourite</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to playlist</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to queue</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Nex to play</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                </ul>
+                                <button type="button" class="absolute duration-200 cursor-pointer left-1/2 top-1/2 -translate-1/2 text-xl text-stone-200 size-10 bg-gray-800 opacity-0 rounded-full flex justify-center items-center z-1"><i class="fa-solid fa-play"></i></button>
+                            </div>
+                            <img class="duration-500" src="img/song_1.jpg" alt="Person in black hoodie holding red smoke flare in urban setting">
+                        </div>
+                        <a class="block text-stone-200 font-bold " href="">I love you</a>
+                        <a class="text-stone-600 text-sm hover:underline underline-offset-2" href="">Arebica Luna</a>
+                    </div>
+                    <div>
+                        <div class="overflow-hidden relative rounded-xl mb-3 hover:[&_*]:opacity-100 hover:[&>img]:scale-110 after:content-[''] after:absolute after:top-0 after:left-0 after:h-1/3 after:w-full after:opacity-0 hover:after:opacity-100 after:duration-400 after:bg-linear-to-b after:from-gray-950">
+                            <div class="absolute text-sm text-stone-200 flex items-top w-full h-full p-4 z-2">
+                                <span class="size-6 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                                <button type="button" class="absolute cursor-pointer right-2 opacity-0 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-3/4 h-full flex flex-col justify-around -right-3/4 duration-200 hover:right-0">
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Favourite</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to playlist</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to queue</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Nex to play</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                </ul>
+                                <button type="button" class="absolute duration-200 cursor-pointer left-1/2 top-1/2 -translate-1/2 text-xl text-stone-200 size-10 bg-gray-800 opacity-0 rounded-full flex justify-center items-center z-1"><i class="fa-solid fa-play"></i></button>
+                            </div>
+
+                            <img class="duration-500" src="img/song_2.jpg" alt="Person in STUSSY t-shirt and ripped jeans sitting on staircase indoors">
+                        </div>
+                        <a class="block text-stone-200 font-bold " href="">Do it yourself</a>
+                        <a class="text-stone-600 text-sm hover:underline underline-offset-2" href="">Zunira Willy</a>
+                    </div>
+                    <div>
+                        <div class="overflow-hidden relative rounded-xl mb-3 hover:[&_*]:opacity-100 hover:[&>img]:scale-110 after:content-[''] after:absolute after:top-0 after:left-0 after:h-1/3 after:w-full after:opacity-0 hover:after:opacity-100 after:duration-400 after:bg-linear-to-b after:from-gray-950">
+                            <div class="absolute text-sm text-stone-200 flex items-top w-full h-full p-4 z-2">
+                                <span class="size-6 block float-left bg-red-600 rounded-full flex items-center justify-center mr-2"><i class="fa-solid fa-heart"></i></span>
+                                <span class="size-6 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                                <button type="button" class="absolute cursor-pointer right-2 opacity-0 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-3/4 h-full flex flex-col justify-around -right-3/4 duration-200 hover:right-0">
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Favourite</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to playlist</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to queue</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Nex to play</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                </ul>
+                                <button type="button" class="absolute duration-200 cursor-pointer left-1/2 top-1/2 -translate-1/2 text-xl text-stone-200 size-10 bg-gray-800 opacity-0 rounded-full flex justify-center items-center z-1"><i class="fa-solid fa-play"></i></button>
+                            </div>
+                            <img class="duration-500" src="img/song_3.jpg" alt="Person holding glowing object wrapped in string lights in dimly lit room with 'Dream' on wall">
+                        </div>
+                        <a class="block text-stone-200 font-bold " href="">Say yes</a>
+                        <a class="text-stone-600 text-sm hover:underline underline-offset-2" href="">Johnny Marro</a>
+                    </div>
+                    <div class="md:block sm:hidden">
+                        <div class="overflow-hidden relative rounded-xl mb-3 hover:[&_*]:opacity-100 hover:[&>img]:scale-110 after:content-[''] after:absolute after:top-0 after:left-0 after:h-1/3 after:w-full after:opacity-0 hover:after:opacity-100 after:duration-400 after:bg-linear-to-b after:from-gray-950">
+                            <div class="absolute text-sm text-stone-200 flex items-top w-full h-full p-4 z-2">
+                                <button type="button" class="absolute cursor-pointer right-2 opacity-0 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-3/4 h-full flex flex-col justify-around -right-3/4 duration-200 hover:right-0">
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Favourite</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to playlist</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to queue</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Nex to play</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                </ul>
+                                <button type="button" class="absolute duration-200 cursor-pointer left-1/2 top-1/2 -translate-1/2 text-xl text-stone-200 size-10 bg-gray-800 opacity-0 rounded-full flex justify-center items-center z-1"><i class="fa-solid fa-play"></i></button>
+                            </div>
+                            <img class="duration-500" src="img/song_4.jpg" alt="DJ performing with dramatic red and white lighting and smoke effects">
+                        </div>
+                        <a class="block text-stone-200 font-bold " href="">Where is your letter</a>
+                        <a class="text-stone-600 text-sm hover:underline underline-offset-2" href="">Jina Moore</a>
+                    </div>
+                    <div class="lg:block hidden">
+                        <div class="overflow-hidden relative rounded-xl mb-3 hover:[&_*]:opacity-100 hover:[&>img]:scale-110 after:content-[''] after:absolute after:top-0 after:left-0 after:h-1/3 after:w-full after:opacity-0 hover:after:opacity-100 after:duration-400 after:bg-linear-to-b after:from-gray-950">
+                            <div class="absolute text-sm text-stone-200 flex items-top w-full h-full p-4 z-2">
+                                <span class="size-6 block float-left bg-red-600 rounded-full flex items-center justify-center mr-2"><i class="fa-solid fa-heart"></i></span>
+                                <span class="size-6 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                                <button type="button" class="absolute cursor-pointer right-2 opacity-0 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-3/4 h-full flex flex-col justify-around -right-3/4 duration-200 hover:right-0">
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Favourite</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to playlist</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Add to queue</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Nex to play</a></li>
+                                    <li><a class="py-3 px-5 w-full block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                </ul>
+                                <button type="button" class="absolute duration-200 cursor-pointer left-1/2 top-1/2 -translate-1/2 text-xl text-stone-200 size-10 bg-gray-800 opacity-0 rounded-full flex justify-center items-center z-1"><i class="fa-solid fa-play"></i></button>
+                            </div>
+                            <img class="duration-500" src="img/song_5.jpg" alt="Person with reflective sunglasses and neon lighting standing behind glass panel">
+                        </div>
+                        <a class="block text-stone-200 font-bold " href="">Hey not me</a>
+                        <a class="text-stone-600 text-sm hover:underline underline-offset-2" href="">Rasomi Pelina</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="events">
+            <div id="container" class="2xl:max-w-310 max-w-260 m-auto p-5 overflow-hidden">
+                <div id="events-container">
+                    <div class="section-header relative mb-10">
+                        <h2 class="font-bold text-4xl text-stone-200">Upcoming <span class="text-blue-500">Events</span></h2>
+                        <a class="text-blue-500 uppercase text-sm absolute right-0 bottom-0 border-b-2 pb-[2px] 
+                        after:content-[''] after:absolute after:h-1 after:w-5 after:bg-gray-950 after:-bottom-1 after:-left-5 hover:after:left-full hover:after:duration-400" href="">Explore more</a>
+                    </div>
+                    <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
+                        <div class="event hover:[&_div>img]:scale-110">
+                            <div class="img-container overflow-hidden rounded-xl">
+                                <img class="duration-500 w-full" src="img/event_1.jpg" alt="Live concert with band performing on stage amid dramatic lighting and fog effects">
+                            </div>
+                            <div class="event-details mt-3">
+                                <p class="text-stone-500 text-sm mb-1"><i class="fa-solid fa-location-dot"></i>258 Goff Avenue, MI - USA</p>
+                                <a class="text-stone-200 font-bold" href="">New year 1st night with BendiQ Band</a>
+                                <div class="audience flex items-center justify-between mt-5">
+                                    <div class="flex items-center">
+                                        <div class="flex">
+                                            <span class="overflow-hidden size-8 rounded-full inline-block">
+                                                <img src="img/user_1.jpg" alt="Person in green turtleneck and hoop earrings standing against solid pink background">
+                                            </span>
+                                            <span class="overflow-hidden -ml-4 size-8 rounded-full inline-block">
+                                                <img src="img/user_2.jpg" alt="Smiling person in yellow outfit and beanie making OK gesture against solid yellow background">
+                                            </span>
+                                            <span class="overflow-hidden -ml-4 size-8 rounded-full inline-block">
+                                                <img src="img/user_3.jpg" alt="Smiling person in purple turtleneck and glasses standing against light purple background">
+                                            </span>
+                                        </div>
+                                        <span class="text-stone-400 text-sm ml-2">23+</span>
+                                    </div>
+                                    <button type="button" class="text-blue-500 text-sm bg-gray-800/60 px-3 py-1 rounded cursor-pointer duration-200 hover:bg-gray-800/80 ">Join Event</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event hover:[&_div>img]:scale-110">
+                            <div class="img-container overflow-hidden rounded-xl">
+                                <img class="duration-500 w-full" src="img/event_2.jpg" alt="Person playing white ukulele by a stream in sunlit natural setting">
+                            </div>
+                            <div class="event-details mt-3">
+                                <p class="text-stone-500 text-sm mb-1"><i class="fa-solid fa-location-dot"></i>2801 Pine Lake Rd, TX - USA</p>
+                                <a class="text-stone-200 font-bold" href="">Virtual event to welcome new year</a>
+                                <div class="audience flex items-center justify-between mt-5">
+                                    <div class="flex items-center">
+                                        <div class="flex">
+                                            <span class="overflow-hidden size-8 rounded-full inline-block">
+                                                <img src="img/user_2.jpg" alt="Smiling person in yellow outfit and beanie making OK gesture against solid yellow background">
+                                            </span>
+                                            <span class="overflow-hidden -ml-4 size-8 rounded-full inline-block">
+                                                <img src="img/user_3.jpg" alt="Smiling person in purple turtleneck and glasses standing against light purple background">
+                                            </span>
+                                            <span class="overflow-hidden -ml-4 size-8 rounded-full inline-block">
+                                                <img src="img/user_1.jpg" alt="Person in green turtleneck and hoop earrings standing against solid pink background">
+                                            </span>
+                                        </div>
+                                        <span class="text-stone-400 text-sm ml-2">40+</span>
+                                    </div>
+                                    <button type="button" class="text-blue-500 text-sm bg-gray-800/60 px-3 py-1 rounded cursor-pointer duration-200 hover:bg-gray-800/80 ">Join Event</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event hover:[&_div>img]:scale-110 md:block hidden">
+                            <div class="img-container overflow-hidden rounded-xl">
+                                <img class="duration-500 w-full" src="img/event_3.jpg" alt="Close-up of DJ hands operating mixing console with colorful lighting and posters in background">
+                            </div>
+                            <div class="event-details mt-3">
+                                <p class="text-stone-500 text-sm mb-1"><i class="fa-solid fa-location-dot"></i>2105 Badger Pond Lane, FL - USA</p>
+                                <a class="text-stone-200 font-bold" href="">Varida Meronny music band</a>
+                                <div class="audience flex items-center justify-between mt-5">
+                                    <div class="flex items-center">
+                                        <div class="flex">
+                                            <span class="overflow-hidden size-8 rounded-full inline-block">
+                                                <img src="img/user_3.jpg" alt="Smiling person in purple turtleneck and glasses standing against light purple background">
+                                            </span>
+                                            <span class="overflow-hidden -ml-4 size-8 rounded-full inline-block">
+                                                <img src="img/user_1.jpg" alt="Person in green turtleneck and hoop earrings standing against solid pink background">
+                                            </span>
+                                            <span class="overflow-hidden -ml-4 size-8 rounded-full inline-block">
+                                                <img src="img/user_2.jpg" alt="Smiling person in yellow outfit and beanie making OK gesture against solid yellow background">
+                                            </span>
+                                        </div>
+                                        <span class="text-stone-400 text-sm ml-2">34+</span>
+                                    </div>
+                                    <button type="button" class="text-blue-500 text-sm bg-gray-800/60 px-3 py-1 rounded cursor-pointer duration-200 hover:bg-gray-800/80 ">Join Event</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="top-albums" class="mt-20">
+            <div id="container" class="2xl:max-w-310 max-w-260 m-auto p-5">
+                <div class="section-header relative mb-10">
+                    <p class="uppercase text-[12px] text-stone-500">Trending to listen</p>
+                    <h2 class="font-bold text-4xl text-stone-200">Top <span class="text-blue-500">Albums</span></h2>
+                    <a class="text-blue-500 uppercase text-sm absolute right-0 bottom-0 border-b-2 pb-[2px] 
+                    after:content-[''] after:absolute after:h-1 after:w-5 after:bg-gray-950 after:-bottom-1 after:-left-5 hover:after:left-full hover:after:duration-400" href="">View all</a>
+                </div>
+                <div id="albums-container">
+                    <ul class="grid lg:grid-cols-2 gap-x-10">
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-1">
+                            <span class="text-stone-200 w-3 mr-5">1</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_1.jpg" alt="Person in black hoodie holding red smoke flare in urban setting">
+                                <p class="text-stone-200">Mummy<br><span class="text-stone-600 text-sm">Arebica Luna</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-3">
+                            <span class="text-stone-200 w-3 mr-5">2</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_2.jpg" alt="Person in STUSSY t-shirt and ripped jeans sitting on staircase indoors">
+                                <p class="text-stone-200">Hot shot<br><span class="text-stone-600 text-sm">Gerrina Linda</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-5">
+                            <span class="text-stone-200 w-3 mr-5">3</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_3.jpg" alt="Person holding glowing object wrapped in string lights in dimly lit room with 'Dream' on wall">
+                                <p class="text-stone-200">Own way<br><span class="text-stone-600 text-sm">Zunira Willy</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-7">
+                            <span class="text-stone-200 w-3 mr-5">4</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_4.jpg" alt="DJ performing with dramatic red and white lighting and smoke effects">
+                                <p class="text-stone-200">Say yes<br><span class="text-stone-600 text-sm">Johnny Marro</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-9">
+                            <span class="text-stone-200 w-3 mr-5">5</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_5.jpg" alt="Person with reflective sunglasses and neon lighting standing behind glass panel">
+                                <p class="text-stone-200">Letter<br><span class="text-stone-600 text-sm">Jina Moore</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-2">
+                            <span class="text-stone-200 w-3 mr-5">6</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_1.jpg" alt="Person in black hoodie holding red smoke flare in urban setting">
+                                <p class="text-stone-200">Find Soul<br><span class="text-stone-600 text-sm">Rasomi Pelina</span></p>
+                            </a href="">
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-4">
+                            <span class="text-stone-200 w-3 mr-5">7</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_2.jpg" alt="Person in STUSSY t-shirt and ripped jeans sitting on staircase indoors">
+                                <p class="text-stone-200">Deep inside<br><span class="text-stone-600 text-sm">Pimila Holliwy Luna</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-6">
+                            <span class="text-stone-200 w-3 mr-5">8</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_3.jpg" alt="Person holding glowing object wrapped in string lights in dimly lit room with 'Dream' on wall">
+                                <p class="text-stone-200">Sadness<br><span class="text-stone-600 text-sm">Karen Jennings</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-8">
+                            <span class="text-stone-200 w-3 mr-5">9</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_4.jpg" alt="DJ performing with dramatic red and white lighting and smoke effects">
+                                <p class="text-stone-200">Electric wave<br><span class="text-stone-600 text-sm">Lenisa Gory</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative overflow-hidden flex items-center px-5 py-2 duration-300 rounded-lg hover:bg-gray-800/80 lg:order-10">
+                            <span class="text-stone-200 w-3 mr-5">10</span>
+                            <a href="" class="flex-auto flex items-center">
+                                <img class="size-18 rounded-lg mr-3" src="img/song_5.jpg" alt="Person with reflective sunglasses and neon lighting standing behind glass panel">
+                                <p class="text-stone-200">Lover soul<br><span class="text-stone-600 text-sm">Nutty Nina</span></p>
+                            </a>
+                            <span class="size-6 mr-5 block float-left bg-cyan-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-crown"></i></span>
+                            <a href="" class="text-stone-200 mr-10 text-xl"><i class="fa-regular fa-heart"></i></a>
+                            <button type="button" class="absolute text-stone-200 cursor-pointer right-5 z-3 hover:[&+ul]:right-0"><i class="fa-solid fa-ellipsis"></i></button>
+                            <ul class="bg-gray-900 text-stone-200 z-2 absolute top-0 w-1/3 h-full flex flex-col justify-around -right-1/3 duration-300 hover:right-0">
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Download</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">Share</a></li>
+                                <li><a class="py-1 px-5 w-full text-sm block hover:bg-gray-800 duration-200" href="">View Details</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="featured-artists" class="mt-20">
+            <div id="container" class="2xl:max-w-310 max-w-260 m-auto p-5">
+                <div class="section-header relative mb-10">
+                    <p class="uppercase text-[12px] text-stone-500">Best to listen</p>
+                    <h2 class="font-bold text-4xl text-stone-200">Featured <span class="text-blue-500">Artists</span></h2>
+                    <a class="text-blue-500 uppercase text-sm absolute right-0 bottom-0 border-b-2 pb-[2px] 
+                    after:content-[''] after:absolute after:h-1 after:w-5 after:bg-gray-950 after:-bottom-1 after:-left-5 hover:after:left-full hover:after:duration-400" href="">View all</a>
+                </div>
+                <div id="artists-container" class="grid lg:grid-cols-6 md:grid-cols-5 grid-cols-3 gap-15 lg:gap-20 ">
+                    <div class="text-center hover:[&_img]:scale-90">
+                        <a href=""><img class="rounded-full mb-5 duration-500" src="img/song_1.jpg" alt="Person in black hoodie holding red smoke flare in urban setting"></a>
+                        <a class="text-stone-200" href="">Arebica Luna</a>
+                    </div>
+                    <div class="text-center hover:[&_img]:scale-90">
+                        <a href=""><img class="rounded-full mb-5 duration-500" src="img/song_2.jpg" alt="Person in STUSSY t-shirt and ripped jeans sitting on staircase indoors"></a>
+                        <a class="text-stone-200" href="">Gerrina Linda</a>
+                    </div>
+                    <div class="text-center hover:[&_img]:scale-90">
+                        <a href=""><img class="rounded-full mb-5 duration-500" src="img/song_3.jpg" alt="Person holding glowing object wrapped in string lights in dimly lit room with 'Dream' on wall"></a>
+                        <a class="text-stone-200" href="">Zunira Willy</a>
+                    </div>
+                    <div class="text-center hover:[&_img]:scale-90">
+                        <a href=""><img class="rounded-full mb-5 duration-500" src="img/song_4.jpg" alt="DJ performing with dramatic red and white lighting and smoke effects"></a>
+                        <a class="text-stone-200" href="">Johnny Marro</a>
+                    </div>
+                    <div class="text-center hover:[&_img]:scale-90">
+                        <a href=""><img class="rounded-full mb-5 duration-500" src="img/song_5.jpg" alt="Person with reflective sunglasses and neon lighting standing behind glass panel"></a>
+                        <a class="text-stone-200" href="">Jina Moore</a>
+                    </div>
+                    <div class="text-center hover:[&_img]:scale-90 lg:block md:hidden">
+                        <a href=""><img class="rounded-full mb-5 duration-500" src="img/song_6.jpg" alt="Person in black hat and leather jacket surrounded by vibrant pink smoke"></a>
+                        <a class="text-stone-200" href="">Rasomi Pelina</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="playlists" class="mt-20">
+            <div id="container" class="2xl:max-w-310 max-w-260 m-auto p-5 overflow-hidden">
+                <div id="playlists-container">
+                    <div class="section-header relative mb-10">
+                        <p class="uppercase text-[12px] text-stone-500">Collection to listen</p>
+                        <h2 class="font-bold text-4xl text-stone-200">Best <span class="text-blue-500">Playlists</span></h2>
+                        <a class="text-blue-500 uppercase text-sm absolute right-0 bottom-0 border-b-2 pb-[2px] 
+                    after:content-[''] after:absolute after:h-1 after:w-5 after:bg-gray-950 after:-bottom-1 after:-left-5 hover:after:left-full hover:after:duration-400" href="">View all</a>
+                    </div>
+                    <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-6">
+                        <div class="playlist relative hover:[&_a>img]:scale-110">
+                            <a href="" class="block overflow-hidden relative rounded-xl after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1/2 after:w-full hover:after:opacity-100 after:duration-400 after:bg-linear-to-t after:from-gray-950">
+                                <img class="duration-500 w-full" src="img/playlist_1.jpg" alt="Person in athletic wear sitting on gym bench using smartphone with dumbbells in background">
+                                <div class="playlist-details absolute bottom-0 px-4 py-2 z-1">
+                                    <p class="text-stone-200 font-bold">GYM</p>
+                                    <p class="text-stone-200 text-sm mb-1"><span>24</span> songs | <span>10 </span>Favourites</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="playlist relative hover:[&_a>img]:scale-110">
+                            <a href="" class="block overflow-hidden relative rounded-xl after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1/2 after:w-full hover:after:opacity-100 after:duration-400 after:bg-linear-to-t after:from-gray-950">
+                                <img class="duration-500 w-full" src="img/playlist_2.jpg" alt="Vinyl record player with orange record spinning beside amplifier and Wilco AM sleeve on shelf">
+                                <div class="playlist-details absolute bottom-0 px-4 py-2 z-1">
+                                    <p class="text-stone-200 font-bold">Retro Special</p>
+                                    <p class="text-stone-200 text-sm mb-1"><span>18</span> songs | <span>8 </span>Favourites</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="playlist relative hover:[&_a>img]:scale-110">
+                            <a href="" class="block overflow-hidden relative rounded-xl after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1/2 after:w-full hover:after:opacity-100 after:duration-400 after:bg-linear-to-t after:from-gray-950">
+                                <img class="duration-500 w-full" src="img/playlist_3.jpg" alt="Two people facing each other in dim light with warm bokeh lights creating a dreamy atmosphere">
+                                <div class="playlist-details absolute bottom-0 px-4 py-2 z-1">
+                                    <p class="text-stone-200 font-bold">Romantic</p>
+                                    <p class="text-stone-200 text-sm mb-1"><span>22</span> songs | <span>14 </span>Favourites</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="playlist relative hover:[&_a>img]:scale-110 lg:block md:hidden">
+                            <a href="" class="block overflow-hidden relative rounded-xl after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1/2 after:w-full hover:after:opacity-100 after:duration-400 after:bg-linear-to-t after:from-gray-950">
+                                <img class="duration-500" src="img/playlist_4.jpg" alt="Live concert with band performing on stage under colorful spotlights and audience watching in foreground">
+                                <div class="playlist-details absolute bottom-0 px-4 py-2 z-1">
+                                    <p class="text-stone-200 font-bold">DJ Remix</p>
+                                    <p class="text-stone-200 text-sm mb-1"><span>34</span> songs | <span>16 </span>Favourites</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="bg-[url(img/footer.jpg)] h-90 text-center relative after:content-[''] after:absolute after:top-0 after:left-0 after:h-full after:w-full after:bg-linear-to-t after:from-gray-950/80 after:to-gray-950">
+            <div class="relative z-1">
+                <a href="mailto:info@listen.com" class="text-stone-200 lg:text-5xl text-4xl mt-25 mb-10 inline-block">info@listenapp.com</a>
+                <div id="buttons-container">
+                    <a class="bg-blue-500 text-stone-200 px-6 py-3 text-lg rounded-lg duration-300 hover:bg-blue-600" href=""><i class="fa-brands fa-google-play"></i> Google Play</a>
+                    <a class="bg-blue-500 text-stone-200 px-6 py-3 text-lg rounded-lg duration-300 hover:bg-blue-600" href=""><i class="fa-brands fa-app-store-ios"></i> App Store</a>
+                </div>
+            </div>
+        </footer>
+        <section id="player" class="sticky bottom-0 -mt-28 left-0 z-10">
+            <div id="container" class="2xl:max-w-310 max-w-260 m-auto p-5 relative z-1">
+                <div class="bg-gray-900 relative flex items-center rounded-md hover:[&_#track-length]:h-[4px] hover:[&_#track-cursor]:opacity-100">
+                    <div id="track-length" class="absolute top-0 left-2 right-2 h-[2px] bg-blue-500/20  cursor-pointer duration-200">
+                        <div class="h-full w-1/3 bg-blue-500 relative">
+                            <span id="track-cursor" class="absolute size-3 opacity-0 duration-500 rounded-full bg-blue-500 -right-1 top-1/2 -translate-y-1/2"></span>
+                        </div>
+                    </div>
+                    <div id="player-img-container" class="size-18 rounded-l-md overflow-hidden">
+                        <img src=" img/song_1.jpg" alt="Person in black hoodie holding red smoke flare in urban setting">
+                    </div>
+                    <div class="flex md:justify-between justify-center items-center flex-auto">
+                        <div id="song-details" class="text-stone-200 px-4 md:block hidden">
+                            <a class="block font-medium" href="">Do it your way</a>
+                            <a class="block text-sm text-stone-500" href="">Gerrinda Linda</a>
+                        </div>
+                        <div id="player-controls" class="text-stone-200 md:ml-0 -ml-18">
+                            <button type="button" class="text-lg cursor-pointer md:inline hidden"><i class="fa-solid fa-repeat"></i></button>
+                            <span class="m-10">
+                                <button type="button" class="cursor-pointer"><i class="fa-solid fa-backward-step"></i></button>
+                                <button type="button" class="cursor-pointer"><span class="bg-gray-800 rounded-full p-2 m-2 cursor-pointer"><i class="fa-solid fa-play"></i></span></button>
+                                <button type="button" class="cursor-pointer"><i class="fa-solid fa-forward-step"></i></button>
+                            </span>
+                            <button type="button" class="text-xl cursor-pointer md:inline hidden"><i class="fa-solid fa-shuffle"></i></button>
+                        </div>
+                        <div id="player-settings" class="text-stone-200 md:relative absolute right-0">
+                            <div class="mr-5 md:inline hidden">
+                                <span>00:06</span><span> / </span><span>00:15</span>
+                            </div>
+                            <button type="button" class="mr-3 cursor-pointer md:inline hidden"><i class="fa-solid fa-volume-low"></i></button>
+                            <button type="button" class="mr-3 cursor-pointer"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
